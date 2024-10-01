@@ -5,6 +5,12 @@ import Login from './pages/auth-view/login';
 import Register from './pages/auth-view/register';
 import './App.css'
 
+import Dashboard from './pages/admin-view/dashboard';
+import Features from './pages/admin-view/features';
+import Orders from './pages/admin-view/orders';
+import Products from './pages/admin-view/products'; 
+import Layyout from './components/admin-view/Layyout';
+
 function App() {
 
 
@@ -18,6 +24,17 @@ function App() {
           <Route path="register" element={<Register/>}/>
         </Route>
 
+       
+
+      </Routes>
+
+      <Routes>
+      <Route path="/admin" element={<Layyout/>}>
+          <Route path="dashboard" element={<Dashboard/>}/>
+          <Route path="features" element={<Features/>}/>
+          <Route path="orders" element={<Orders/>}/>
+          <Route path="products" element={<Products/>}/>
+        </Route>
       </Routes>
     </>
   )
