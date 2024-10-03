@@ -10,8 +10,23 @@ import Features from './pages/admin-view/features';
 import Orders from './pages/admin-view/orders';
 import Products from './pages/admin-view/products'; 
 import Layyout from './components/admin-view/Layyout';
+import ShoppingLayout from './components/shopping-view/layout';
+import Home from './pages/shopping-view/Home';
+import Listing from './pages/shopping-view/Listing';
+import Checkout from './pages/shopping-view/Checkout';
+import Account from './pages/shopping-view/account';  
+
+import Notfound from './components/not-found/Notfound';
+import CheckAuth from './components/common/checkAuth';
 
 function App() {
+
+  const isAuthenticated = false;
+  const user = {
+    name: 'John Doe',
+    role: 'user'
+  }
+
 
 
   return (
@@ -19,23 +34,44 @@ function App() {
       <h1 className='text-4xl font-bold text-center text-teal-400'>Hello World</h1>
 
       <Routes>
-        <Route path="/auth" element={<Layout/>}>
+        <Route path="/auth" element={
+          <CheckAuth isAuthenticated={isAuthenticated} user={user} >
+         <Layout/>
+        </CheckAuth>
+          
+          }>
           <Route path="login" element={<Login/>}/>
           <Route path="register" element={<Register/>}/>
         </Route>
 
-       
-
-      </Routes>
-
-      <Routes>
-      <Route path="/admin" element={<Layyout/>}>
+        <Route path="/admin" element={
+          <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+            <Layyout/>
+          </CheckAuth>
+         }>
           <Route path="dashboard" element={<Dashboard/>}/>
           <Route path="features" element={<Features/>}/>
           <Route path="orders" element={<Orders/>}/>
           <Route path="products" element={<Products/>}/>
         </Route>
+
+        <Route path="/shopping" element={
+          <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+            <ShoppingLayout/>
+          </CheckAuth>
+          }>
+          <Route path="home" element={<Home/>}/>
+          <Route path="listing" element={<Listing/>}/>
+          <Route path="checkout" element={<Checkout/>}/>
+          <Route path="account" element={<Account/>}/>
+        </Route>
+
+        <Route path="*" element={<Notfound/>}/>
+
+       
       </Routes>
+
+     
     </>
   )
 }
