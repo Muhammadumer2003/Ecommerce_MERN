@@ -2,7 +2,7 @@
 
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import registerFormdata from "../../config";
+import {registerFormdata} from "../../config";
 import Form from "../../components/common/form";
 const Register = () => {
     let initialFormData={

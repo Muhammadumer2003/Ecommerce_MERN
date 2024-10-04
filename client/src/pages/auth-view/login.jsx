@@ -1,14 +1,16 @@
 /* eslint-disable react/jsx-no-undef */
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import registerFormdata from "../../config";
+import {loginFormdata} from "../../config";
+
 import Form from "../../components/common/form";
 const Login = () => {
     let initialFormData={
         email:'',
         password:'',
     }
-    const handleSubmit=()=>{
+    const handleSubmit=(e)=>{
+        e.preventDefault();
         console.log(formData);
     }
     const [formData, setFormData] = useState(initialFormData);
@@ -29,7 +31,7 @@ const Login = () => {
           </p>
         </div>
         <Form
-          formControl={registerFormdata}
+          formControl={loginFormdata}
           buttonText={"Sign In"}
           formData={formData}
           setFormData={setFormData}

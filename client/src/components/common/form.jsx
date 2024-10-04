@@ -22,6 +22,7 @@ const Form = ({formControl=[], formData ,setFormData,onSubmit ,isButtonDisabled,
                     name={e.name}
                     placeholder={e.placeholder}
                     value={value}
+                    type={e.type}
                     onchange={(z)=>
                         setFormData({...formData,[e.name]:z.target.value})
                     }
@@ -59,6 +60,7 @@ const Form = ({formControl=[], formData ,setFormData,onSubmit ,isButtonDisabled,
                         name={e.name}
                         placeholder={e.placeholder}
                     value={value}
+                    type={e.type}
 
                     onchange={(z)=>{
                         setFormData({...formData,[e.name]:z.target.value})
@@ -67,6 +69,23 @@ const Form = ({formControl=[], formData ,setFormData,onSubmit ,isButtonDisabled,
                     />
                 )
                 break;
+                default:
+                    element = (
+                      <Input
+                        name={e.name}
+                        placeholder={e.placeholder}
+                        id={e.name}
+                        type={e.type}
+                        value={value}
+                        onChange={(event) =>
+                          setFormData({
+                            ...formData,
+                            [e.name]: event.target.value,
+                          })
+                        }
+                      />
+                    );
+                    break;
 
         }
 

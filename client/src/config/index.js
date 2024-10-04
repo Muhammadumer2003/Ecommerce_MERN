@@ -1,6 +1,6 @@
 
 
-const registerFormdata=[
+export const registerFormdata=[
     {
         name:'name',
         label:'Name',
@@ -31,4 +31,25 @@ const registerFormdata=[
     },
 ]
 
-export default registerFormdata;
+
+export const loginFormdata=[
+   
+    {
+        name:'email',
+        label:'Email',
+        type:'email',
+        required:true,
+        placeholder:'Enter your email',
+        errorMessage:'Email is required',
+        pattern:'^[A-Za-z0-9]{3,16}$',
+    },
+    {
+        name:'password',
+        label:'Password',
+        type:'password',
+        required:true,
+        placeholder:'Enter your password',
+        errorMessage:'Password is required',
+        pattern:'^[A-Za-z0-9]{3,16}$',
+    },
+]
