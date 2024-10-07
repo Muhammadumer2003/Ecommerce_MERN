@@ -2,8 +2,8 @@
 
 export const registerFormdata=[
     {
-        name:'name',
-        label:'Name',
+        name:'username',
+        label:'username',
         type:'text',
         required:true,
         placeholder:'Enter your name',

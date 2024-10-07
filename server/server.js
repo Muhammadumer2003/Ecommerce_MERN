@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";    
 import cookieParser from "cookie-parser";
+import authRouter from "./Routes/auth/auth-routes.js";
 
 dotenv.config();
 
@@ -24,8 +25,12 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
-app.use(express.json());
+
 app.use(cookieParser());
+app.use(express.json({limit:"16kb"}));
+app.use(express.urlencoded({extended:true,limit:"16kb"}));
+app.use(express.static("public"));
+app.use("/api/auth",authRouter);
 
 const PORT = process.env.PORT || 5000;
 
