@@ -2,6 +2,8 @@ import bcrypt from "bcrypt";
 import User from "../../Models/Users/user-model.js";
 import jwt from "jsonwebtoken";
 import {asyncHandler} from "../../utils/AsyncHandler.js";
+
+
 export const registerUser=asyncHandler(async(req,res)=>{
     const {username,email,password}=req.body;
     console.log(email, password, username);
@@ -30,5 +32,54 @@ export const registerUser=asyncHandler(async(req,res)=>{
     
 
 });
+
+
+export const LoginUser=asyncHandler(async(req,res)=>{
+    const {email,password}=req.body;
+
+    if(!email || !password ){
+        res.status(400).json({
+            success:false,
+            message:"All fields are required"
+        })
+    }
+
+    const verifyUser=await User.findOne({email});
+
+    if(!verifyUser) return res.status(400).json({
+        success:false,
+        message:"User not found"
+    });
+
+    const verifyPassword=await bcrypt.compare(password,verifyUser.password);
+
+    if(!verifyPassword){
+        res.status(400).json({
+            success:false,
+            message:"Invalid email or password"
+        })
+    }
+
+    const token=jwt.sign({
+        id:verifyUser._id,
+        email:verifyUser.email,
+        role:verifyUser.role
+    },"Chai_aur_code",{expiresIn:"60m"});
+
+    return res.cookie("token",token,{
+        httpOnly: true,
+        secure:true,
+    }).status(201).json({
+        success:true,
+        message:"User logged in successfully",
+        user:verifyUser
+    })
+
+
+
+    
+})
+
+
 
 

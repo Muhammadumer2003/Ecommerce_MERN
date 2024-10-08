@@ -18,14 +18,15 @@ import Account from './pages/shopping-view/account';
 
 import Notfound from './components/not-found/Notfound';
 import CheckAuth from './components/common/checkAuth';
+import { useSelector } from 'react-redux';
 
 function App() {
 
-  const isAuthenticated = false;
-  const user = {
-    name: 'John Doe',
-    role: 'user'
-  }
+  
+
+  const {isauthenticated,user}=useSelector(store=>store.auth);
+  console.log("User:", user);
+console.log("Is Authenticated:", isauthenticated);
 
 
 
@@ -35,7 +36,7 @@ function App() {
 
       <Routes>
         <Route path="/auth" element={
-          <CheckAuth isAuthenticated={isAuthenticated} user={user} >
+          <CheckAuth isAuthenticated={isauthenticated} user={user} >
          <Layout/>
         </CheckAuth>
           
@@ -45,7 +46,7 @@ function App() {
         </Route>
 
         <Route path="/admin" element={
-          <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+          <CheckAuth isAuthenticated={isauthenticated} user={user}>
             <Layyout/>
           </CheckAuth>
          }>
@@ -56,7 +57,7 @@ function App() {
         </Route>
 
         <Route path="/shopping" element={
-          <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+          <CheckAuth isAuthenticated={isauthenticated} user={user}>
             <ShoppingLayout/>
           </CheckAuth>
           }>

@@ -27,6 +27,24 @@ export const registerUserstart=createAsyncThunk(
     }
 )
 
+export const loginUserstart=createAsyncThunk(
+    "/auth/login",
+    async (formData) => {
+        try {
+            const response = await axios.post("http://localhost:5000/api/auth/login", formData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log("Response data:", response.data);
+            return response.data;
+        } catch (error) {
+            console.error("Registration error:", error.response?.data || error.message);
+            
+        }
+    }
+)
+
 const authSlice=createSlice({
     name:"auth",
     initialState,
@@ -49,7 +67,32 @@ const authSlice=createSlice({
                 state.isLoading=false;
                 state.user=null;
                 state.isauthenticated=false;
+            }).
+            addCase(loginUserstart.pending,(state)=>{
+                state.isLoading=true;
             })
+            .addCase(loginUserstart.fulfilled,(state,action)=>{
+                state.isLoading = false;
+    console.log("Fulfilled payload:", action.payload); 
+
+    // Ensure the payload has a success field and user object
+    if (action.payload && action.payload.success) {
+        state.user = action.payload.user || null;
+        state.isauthenticated = true;
+        console.log("User after login:", state.user); // Log the user data after update
+        console.log("Is Authenticated after login:", state.isauthenticated); // Log authentication status
+    } else {
+        state.user = null;
+                state.isauthenticated = false;
+            }
+            })
+            .addCase(loginUserstart.rejected,(state)=>{
+                state.isLoading=false;
+                state.user=null;
+                state.isauthenticated=false;
+            })
+            
+
         }
        
         
