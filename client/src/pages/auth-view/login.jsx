@@ -20,6 +20,7 @@ const Login = () => {
       event.preventDefault();
       console.log(formData);
       dispatch(loginUserstart(formData)).then(res=>{
+        console.log("Dispatch result:", res);  // Check what's returned`  `   `
               if(res?.payload?.success){
                 console.log(res?.payload?.message);
                

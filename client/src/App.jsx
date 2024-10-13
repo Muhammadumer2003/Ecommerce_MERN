@@ -19,14 +19,29 @@ import Account from './pages/shopping-view/account';
 import Notfound from './components/not-found/Notfound';
 import CheckAuth from './components/common/checkAuth';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { check_auth_start } from './store/auth-slice';
 
 function App() {
 
   
 
-  const {isauthenticated,user}=useSelector(store=>store.auth);
+  const {isauthenticated,user,isLoading}=useSelector(store=>store.auth);
   console.log("User:", user);
 console.log("Is Authenticated:", isauthenticated);
+
+const dispatchd=useDispatch();
+useEffect(()=>{
+  console.log("Checking authentication",isauthenticated);
+  dispatchd(check_auth_start());
+},[dispatchd]);
+
+if(isLoading){
+  return <div>Loading...</div>;
+}
+
+
 
 
 

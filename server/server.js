@@ -19,13 +19,15 @@ mongoose.connect(Mongo_uri).then(()=>console.log("MongoDB connected"))
 .catch((err)=>console.log(err));
 
 
-app.use(cors({
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-}));
-
-
+app.use(
+    cors({
+      origin: "http://localhost:5173", // Your frontend URL
+      credentials: true, // Allow cookies and credentials
+      methods: ["GET", "POST", "PUT", "DELETE"],
+      allowedHeaders: ["Content-Type", "Authorization", "Cache-Control"], // Add Cache-Control here
+    })
+  );
+  
 app.use(cookieParser());
 app.use(express.json({limit:"16kb"}));
 app.use(express.urlencoded({extended:true,limit:"16kb"}));
