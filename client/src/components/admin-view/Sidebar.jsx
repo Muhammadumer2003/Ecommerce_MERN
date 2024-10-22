@@ -1,7 +1,8 @@
-import { LayoutDashboard, ShoppingBasket,BadgeCheck } from "lucide-react";
+import { LayoutDashboard, ShoppingBasket,BadgeCheck, ChartNoAxesCombined } from "lucide-react";
+import { Fragment } from "react";
 
-
-const adminSideBarMenu=[
+// eslint-disable-next-line react-refresh/only-export-components
+export const adminSideBarMenu=[
     {
         id: "dashboard",
         label:"Dashboard",
@@ -35,8 +36,16 @@ const adminSideBarMenu=[
 const Sidebar=()=>{
     
     return(
-        <>
-        </>
+        <Fragment>
+         <aside className="hidden w-64 flex-col border-r bg-background p-6 lg:flex">
+
+            <div className="flex cursor-pointer items-center gap-2">
+            <ChartNoAxesCombined size={30} />
+            <h1 className="text-2xl font-extrabold">Admin Panel</h1>
+            </div>
+
+         </aside>
+        </Fragment>
     )
 }
 
